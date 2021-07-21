@@ -22,8 +22,9 @@ export default function ProductPage({ products }) {
         <a className="cart" href="/cart">
           Shopping Cart
         </a>
-
-        <ProductPageContent product={collection.data[0].node} />
+        poopie
+        {products}
+        {/* <ProductPageContent product={collection.data[0].node} /> */}
       </main>
     </div>
   );
@@ -38,9 +39,12 @@ export async function getStaticPaths() {
       return response.products.edges;
     });
 
-  console.log(products);
+  let routes = products.map((p) => {
+    const params = `/product/${p.node.handle}`;
+    return params;
+  });
 
-  return { paths: [], fallback: false };
+  return { paths: routes, fallback: false };
 }
 
 export async function getStaticProps() {

@@ -22,8 +22,8 @@ export default function Home({ products }) {
         </a>
 
         <ul className="products">
-          {products.map((p) => {
-            return <ProductListing product={p.node} />;
+          {products.map((p, index) => {
+            return <ProductListing product={p.node} key={`product${index}`} />;
           })}
         </ul>
       </main>
@@ -32,7 +32,26 @@ export default function Home({ products }) {
 }
 
 export async function getStaticProps() {
-  let products = [];
+  console.log(`${process.env.NETLIFY_URL}/.netlify/functions/get-product-list`);
+
+  //https://shopify-next.netlify.app/
+
+  let products = await fetch(
+    `${process.env.NETLIFY_URL}/.netlify/functions/get-product-list`
+  )
+    .then((res) => res.json())
+    .then((response) => {
+      return response.products.edges;
+    });
+
+  console.log(products);
+
+  let routes = products.map((p) => {
+    const params = p.node.handle;
+    return params;
+  });
+
+  console.log(routes);
 
   return {
     props: {
