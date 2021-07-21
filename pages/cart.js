@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Cart from '@components/Cart';
 
-export default function Home({ products }) {
+export default function CartPage() {
   return (
     <div className="container">
       <Head>
@@ -26,14 +26,4 @@ export default function Home({ products }) {
       </main>
     </div>
   );
-}
-
-export async function getStaticProps() {
-  let products = [];
-
-  return {
-    props: {
-      products,
-    },
-  };
 }
