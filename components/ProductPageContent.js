@@ -1,11 +1,5 @@
-import { Fragment, useEffect, useState } from 'react';
-
-function formatPrice(num) {
-  return parseFloat(num).toLocaleString('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  });
-}
+import { useEffect, useState } from 'react';
+import { formatPrice } from '../utilityFunctions';
 
 function getCurrentVariantObject(vars, id) {
   return vars.filter((v) => {
@@ -15,11 +9,11 @@ function getCurrentVariantObject(vars, id) {
 
 function VariantForm({ vars, current, pick, setQ }) {
   return (
-    <form>
+    <form className="addToCart">
       {vars.length > 1 &&
         vars.map((v, index) => {
           return (
-            <Fragment key={index}>
+            <div className="product-page-price" key={`variant${index}`}>
               <label>
                 <input
                   name="Product Variant"
@@ -30,10 +24,10 @@ function VariantForm({ vars, current, pick, setQ }) {
                     pick(v.node.id);
                   }}
                 />
-                {v.node.title}
+                {` ${v.node.title}`}
               </label>
               <br />
-            </Fragment>
+            </div>
           );
         })}
       <input
@@ -43,7 +37,7 @@ function VariantForm({ vars, current, pick, setQ }) {
         min={1}
         max={getCurrentVariantObject(vars, current).node.quantityAvailable}
         onChange={(e) => {
-          setQ(e.target.value);
+          setQ(parseInt(e.target.value));
         }}
       />
     </form>
@@ -80,7 +74,7 @@ export default function ProductPageContent({ product }) {
     };
 
     const cartResponse = await fetch(
-      `${process.env.NETLIFY_URL}/.netlify/functions/add-to-cart`,
+      `${import.meta.env.NETLIFY_URL}/.netlify/functions/add-to-cart`,
       {
         method: 'post',
         body: JSON.stringify(body),
@@ -90,13 +84,18 @@ export default function ProductPageContent({ product }) {
 
     const data = await cartResponse.json();
     window.localStorage.setItem('astroCartId', data.id);
+
     return data;
   };
 
   return (
-    <div className="product-page">
-      <div className="product-img">
-        <img src={image.src} alt={image.altText} />
+    <section className="product-page-content">
+      <div>
+        <img
+          src={image.src}
+          alt={image.altText}
+          className="product-page-image"
+        />
       </div>
       <div className="product-copy">
         <h1>{product.title}</h1>
@@ -118,6 +117,6 @@ export default function ProductPageContent({ product }) {
           </button>
         )}
       </div>
-    </div>
+    </section>
   );
 }

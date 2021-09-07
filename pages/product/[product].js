@@ -1,60 +1,61 @@
 import Head from 'next/head';
 import ProductPageContent from '@components/ProductPageContent';
+import Header from '@components/Header';
+import Footer from '@components/Footer';
 
-export default function ProductPage({ products }) {
+export default function ProductPage({ product }) {
   return (
     <div className="container">
       <Head>
-        <title>Cheese and Meat Shop</title>
+        <title>Shoperoni | Buy {product.node.title}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <header>
-          <h1>Shoperoni</h1>
-          <h2>
-            Shop for literally the best products in the world, right here.
-          </h2>
-        </header>
-        <a className="home" href="/">
-          Go back
-        </a>
-        <a className="cart" href="/cart">
-          Shopping Cart
-        </a>
-        poopie
-        {products}
-        {/* <ProductPageContent product={collection.data[0].node} /> */}
-      </main>
+      <Header />
+      <div className="product-page">
+        <article>
+          <ProductPageContent product={product.node} />
+        </article>
+      </div>
+      <Footer />
     </div>
   );
 }
 
+export async function getProductList() {
+  let products = await fetch(
+    `${process.env.NETLIFY_URL}/.netlify/functions/get-product-list`
+  )
+    .then((res) => res.json())
+    .then((response) => {
+      console.log('--- built product pages ---');
+      return response.products.edges;
+    });
+  return products;
+}
+
 export async function getStaticPaths() {
-  // let products = await fetch(
-  //   `${process.env.NETLIFY_URL}/.netlify/functions/get-product-list`
-  // )
-  //   .then((res) => res.json())
-  //   .then((response) => {
-  //     return response.products.edges;
-  //   });
-
-  // let routes = products.map((p) => {
-  //   const params = `/product/${p.node.handle}`;
-  //   return params;
-  // });
-
-  let routes = [];
+  let products = await getProductList();
+  let routes = products.map((p) => {
+    const params = `/product/${p.node.handle}`;
+    return params;
+  });
 
   return { paths: routes, fallback: false };
 }
 
-export async function getStaticProps() {
-  let products = [];
+export async function getStaticProps({ params }) {
+  let products = await getProductList();
+
+  console.log(params);
+
+  let product = products.find((p) => {
+    return p.node.handle === params.product;
+  });
 
   return {
     props: {
-      products,
+      product,
     },
   };
 }

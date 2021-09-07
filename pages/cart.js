@@ -1,29 +1,24 @@
 import Head from 'next/head';
+import Header from '@components/Header';
+import Footer from '@components/Footer';
 import Cart from '@components/Cart';
 
 export default function CartPage() {
   return (
-    <div className="container">
+    <>
       <Head>
-        <title>Cheese and Meat Shop</title>
+        <title>Shoperoni | Cart</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <header>
-          <h1>Shoperoni</h1>
-          <h2>
-            Shop for literally the best products in the world, right here.
-          </h2>
-        </header>
-
-        {/* TODO change to Link */}
-        <a className="home" href="/">
-          Go back
-        </a>
-
-        <Cart />
+      <Header />
+      <main className="cart-page">
+        <article className="cart-page-content">
+          <h1>Your cart</h1>
+          <Cart />
+        </article>
       </main>
-    </div>
+      <Footer />
+    </>
   );
 }
