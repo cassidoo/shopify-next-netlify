@@ -31,18 +31,20 @@ export default function ProductPage({ products }) {
 }
 
 export async function getStaticPaths() {
-  let products = await fetch(
-    `${process.env.NETLIFY_URL}/.netlify/functions/get-product-list`
-  )
-    .then((res) => res.json())
-    .then((response) => {
-      return response.products.edges;
-    });
+  // let products = await fetch(
+  //   `${process.env.NETLIFY_URL}/.netlify/functions/get-product-list`
+  // )
+  //   .then((res) => res.json())
+  //   .then((response) => {
+  //     return response.products.edges;
+  //   });
 
-  let routes = products.map((p) => {
-    const params = `/product/${p.node.handle}`;
-    return params;
-  });
+  // let routes = products.map((p) => {
+  //   const params = `/product/${p.node.handle}`;
+  //   return params;
+  // });
+
+  let routes = [];
 
   return { paths: routes, fallback: false };
 }
