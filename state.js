@@ -1,14 +1,14 @@
-import { createContext, useContext } from 'react';
+import { useState, createContext, useContext } from 'react';
 
 const AppContext = createContext();
 
 export function AppWrapper({ children }) {
-  let sharedState = {
-    cartId: '',
-  };
+  let [cartId, setCartId] = useState(null);
 
   return (
-    <AppContext.Provider value={sharedState}>{children}</AppContext.Provider>
+    <AppContext.Provider value={{ cartId, setCartId }}>
+      {children}
+    </AppContext.Provider>
   );
 }
 

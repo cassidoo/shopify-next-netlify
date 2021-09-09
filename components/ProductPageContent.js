@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { formatPrice } from '../utilityFunctions';
+import { useAppContext } from '../state';
 
 function getCurrentVariantObject(vars, id) {
   return vars.filter((v) => {
@@ -51,7 +52,10 @@ export default function ProductPageContent({ product }) {
   const [chosenVariant, setChosenVariant] = useState(vars[0].node.id);
   // Quantity of the chosen variant
   const [quantity, setQuantity] = useState(1);
+  // Cost of the chosen variant
   const [cost, setCost] = useState('');
+
+  const { cartId, setCartId } = useAppContext();
 
   useEffect(() => {
     let variantPrice = getCurrentVariantObject(vars, chosenVariant).node.priceV2
@@ -65,16 +69,14 @@ export default function ProductPageContent({ product }) {
   let handleAddToCart = async () => {
     console.log('--- Adding to cart ---');
 
-    const localCart = window.localStorage.getItem('astroCartId');
-
     const body = {
-      cartId: localCart || '',
+      cartId: cartId || '',
       itemId: chosenVariant,
       quantity: quantity,
     };
 
     const cartResponse = await fetch(
-      `${import.meta.env.NETLIFY_URL}/.netlify/functions/add-to-cart`,
+      `${process.env.NETLIFY_URL}/.netlify/functions/add-to-cart`,
       {
         method: 'post',
         body: JSON.stringify(body),
@@ -83,7 +85,7 @@ export default function ProductPageContent({ product }) {
     );
 
     const data = await cartResponse.json();
-    window.localStorage.setItem('astroCartId', data.id);
+    setCartId(data.id);
 
     return data;
   };

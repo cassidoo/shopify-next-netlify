@@ -1,4 +1,4 @@
-import React from 'react';
+import Link from 'next/link';
 
 export default function ProductListing({ product }) {
   let image = product.images.edges[0].node;
@@ -13,9 +13,11 @@ export default function ProductListing({ product }) {
           {product.description.substring(0, 60)}...
         </p>
       </div>
-      <a href={`/product/${product.handle}`}>
-        <button>View Item {`>`} </button>
-      </a>
+      <Link href={`/product/${product.handle}`}>
+        <a>
+          <button>View Item {`>`} </button>
+        </a>
+      </Link>
     </li>
   );
 }

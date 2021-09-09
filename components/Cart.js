@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useAppContext } from '../state';
 import CartTable from './CartTable';
 import CartTotal from './CartTotal';
 
@@ -6,10 +7,10 @@ export default function Cart() {
   const [showProducts, setShowProducts] = useState(true);
   const [products, setProducts] = useState([]);
   const [cost, setCost] = useState({});
-  const [cartId, setCartId] = useState(null);
+  const { cartId, setCartId } = useAppContext();
 
   useEffect(() => {
-    const localCart = window.localStorage.getItem('astroCartId');
+    const localCart = cartId;
 
     let data;
 

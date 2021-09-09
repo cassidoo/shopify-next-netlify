@@ -1,4 +1,3 @@
-import React from 'react';
 import { formatPrice, itemTotal } from '../utilityFunctions';
 
 export default function CartTable({ cartItems, cartId, removeItem }) {

@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Header from '@components/Header';
 import Footer from '@components/Footer';
 import Cart from '@components/Cart';
+import { useAppContext } from '../state';
 
 export default function CartPage() {
   return (

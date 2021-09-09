@@ -1,27 +1,33 @@
+import Link from 'next/link';
+
 export default function Header() {
   return (
     <header className="app-header">
       <h1>
-        <a href="/">Shoperoni</a>
+        <Link href="/">
+          <a>Shoperoni</a>
+        </Link>
       </h1>
       <nav className="main-nav">
         <ul>
           <li className="main-nav-item">
-            <a href="/">All Products</a>
+            <Link href="/">
+              <a>All Products</a>
+            </Link>
           </li>
           {/* <li className="main-nav-item">
-            <a href="/cheeses">Cheeses</a>
+            <Link href="/cheeses"><a>Cheeses</a></Link>
           </li>
           <li className="main-nav-item">
-            <a href="/meats">Meats</a>
+            <Link href="/meats"><a>Meats</a></Link>
           </li>
           <li className="main-nav-item">
-            <a href="/boards">Boards</a>
+            <Link href="/boards"><a>Boards</a></Link>
           </li> */}
           <li className="main-nav-item">
-            <a href="/cart" className="cart cartLink">
-              Shopping Cart
-            </a>
+            <Link href="/cart">
+              <a className="cart cartLink">Shopping Cart</a>
+            </Link>
           </li>
         </ul>
       </nav>

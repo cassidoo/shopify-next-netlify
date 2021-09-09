@@ -2,8 +2,11 @@ import Head from 'next/head';
 import ProductPageContent from '@components/ProductPageContent';
 import Header from '@components/Header';
 import Footer from '@components/Footer';
+import { useAppContext } from '../../state';
 
 export default function ProductPage({ product }) {
+  const { cartId } = useAppContext();
+
   return (
     <div className="container">
       <Head>
@@ -46,8 +49,6 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   let products = await getProductList();
-
-  console.log(params);
 
   let product = products.find((p) => {
     return p.node.handle === params.product;
