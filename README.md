@@ -1,4 +1,4 @@
-# Next + Shopify Starter Project
+# Next.js + Shopify Starter Project
 
 This is a Next.js + Shopify Cart API demo! [Check out the site here](https://shopify-next.netlify.app/). If you want to make your own version, make sure you create a Shopify account and create some products, and install the [Netlify CLI](https://docs.netlify.com/cli/get-started/).
 
