@@ -17,7 +17,7 @@ export default function CartTotal({ cost }) {
     cost?.subtotalAmount?.amount,
     cost?.subtotalAmount?.currency
   );
-  tax = formatPrice(cost?.totalTaxAmount, cost?.totalTaxAmount?.currency);
+  tax = formatPrice(cost?.totalTaxAmount?.amount, cost?.totalTaxAmount?.currency);
   total = formatPrice(cost?.totalAmount?.amount, cost?.totalAmount?.currency);
 
   return (
