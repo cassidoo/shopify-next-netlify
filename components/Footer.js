@@ -35,7 +35,7 @@ export default function Footer() {
         <div className="project-credit">
           <p>
             This project is
-            <a href="https://github.com/cassidoo/shopify-react-astro">
+            <a href="https://github.com/cassidoo/shopify-next-netlify">
               open source on GitHub
             </a>
             , hosted with <a href="https://bit.ly/2G29YwK">Netlify</a>, built
