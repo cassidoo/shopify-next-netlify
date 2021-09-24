@@ -2,6 +2,15 @@
 
 This is a Next.js + Shopify Cart API demo! [Check out the site here](https://shopify-next.netlify.app/). If you want to make your own version, make sure you create a Shopify account and create some products, and install the [Netlify CLI](https://docs.netlify.com/cli/get-started/).
 
+Once you have your shop set up, add environment variables to your setup:
+
+```bash
+SHOPIFY_STOREFRONT_API_TOKEN=example
+SHOPIFY_API_ENDPOINT=https://exampleshopify/graphql.json
+```
+
+See more about the setup [in this blog post](https://www.netlify.com/blog/2021/09/13/build-your-own-online-shop-with-next.js-and-shopify/).
+
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/cassidoo/shopify-next-netlify)
 
 (If you click this button, it will create a new repo for you that looks exactly like this one, and sets that repo up immediately for deployment on Netlify)
